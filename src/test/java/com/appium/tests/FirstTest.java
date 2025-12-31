@@ -18,9 +18,20 @@ public class FirstTest {
 
     private AndroidDriver driver;
     private WebDriverWait wait;
+    String testEmail;
+    String testPassword;
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
+        String email = System.getenv("KINDLE_EMAIL");
+        String password = System.getenv("KINDLE_PASSWORD");
+        if (email == null || password == null) {
+            // Fallback for local testing
+            email = "shabars+201@amazon.com";
+            password = "labone2six";
+        }
+        this.testEmail = email;
+        this.testPassword = password;
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "Android");
         caps.setCapability("deviceName", "emulator-5554");
@@ -86,7 +97,7 @@ public class FirstTest {
                 AppiumBy.xpath("//android.widget.EditText[@hint='Enter mobile number or email']")
             ));
             emailField.click(); // Click to focus
-            emailField.sendKeys("shabars+201@amazon.com");
+            emailField.sendKeys(testEmail);
             System.out.println("Entered email address");
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -112,7 +123,7 @@ public class FirstTest {
                 AppiumBy.xpath("//android.widget.EditText[@hint='Amazon password']")
             ));
             passwordField.click();
-            passwordField.sendKeys("labone2six");
+            passwordField.sendKeys(testPassword);
             System.out.println("Entered password");
             Thread.sleep(1000);
         } catch (Exception e) {
