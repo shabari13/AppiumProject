@@ -24,6 +24,7 @@ public class FirstTest {
     @BeforeClass
     public void setUp() throws MalformedURLException {
         String email = System.getenv("KINDLE_EMAIL");
+        System.out.print("fetced email from Jenkins");
         String password = System.getenv("KINDLE_PASSWORD");
         if (email == null || password == null) {
             // Fallback for local testing
